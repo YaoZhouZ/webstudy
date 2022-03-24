@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>axios.create方法</title>
+    <script src="./js/axios.min.js"></script>
+</head>
+
+<body>
+    <!-- 
+        axios.create(config)
+            1.根据指定配置创建一个新的axios，也就是每个新axios都有自己的配置
+            2.新axios只是没有取消请求和批量发请求的方法，其他所有语法都是一致的
+            3.为什么要设计这个语法？
+                需求：项目中有部分接口需要配置与另一部分接口需要的配置不太一样
+     -->
+    <button id="btn1">点我获取所有人</button>
+    <button id="btn2">点我获取笑话</button>
+    <script>
+        const btn1 = document.getElementById('btn1')
+        const btn2 = document.getElementById('btn2')
+
+        const axios2 = axios.create({
+            timeout: 3000,
+            header: { name: 'tom' },
+            baseURL: 'https://api.apiopen.top'
+        })
+
+        // 给axios配置默认属性
+        axios.defaults.timeout = 2000
+        axios.defaults.header = { school: 'atguigu' }
+        axios.defaults.baseURL = 'http://localhost:5000'
+
+        btn1.onclick = () => {
+            axios({
+                url: '/persons',//请求地址
+                methed: 'GET',//请求方式
+            }).then(
+                response => { console.log('成功', response) },
+                error => { console.log('失败', error) }
+            )
+        }
+
+        btn2.onclick = () => {
+            axios2({
+                url: '/getJoke',
+                methed:'GET'
+            }).then(
+                response => { console.log('成功', response) },
+                error => { console.log('失败', error) }
+            )
+        }
+
+    </script>
+</body>
+
+</html>
