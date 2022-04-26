@@ -1,0 +1,20 @@
+<template>
+  <div>
+    <li v-for="(item, index) in todos" :key="index">
+      <!-- 作用域插槽 -->
+      <slot :todo="item"></slot>
+    </li>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "List",
+  props: {
+    todos: Array,
+  },
+};
+</script>
+
+<style>
+</style>
